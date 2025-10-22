@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebGL Water</title>
+    <style>
+        body {
+            font: 13px/140% Arial, sans-serif;
+            background: url('imgs/bg.png') no-repeat center center fixed;
+            background-size: cover;
+            color: white;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+        }
+
+        a { color: inherit; cursor: pointer; }
+        img { display: none; }
+        ul { padding: 0 0 0 20px; }
+        h1 { font: bold italic 30px/30px Georgia; text-align: center; }
+        h2 { font: bold italic 17px/17px Georgia; padding-top: 10px; }
+        small { display: block; font-size: 11px; line-height: 15px; }
+        
+        /* تعديل الـ canvas ليكون في المنتصف تماماً */
+        canvas { 
+            position: absolute; 
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: transparent !important; 
+        }
+
+        #help {
+            display: none !important;
+        }
+
+        #loading {
+            display: none !important;
+        }
+
+        /* تصميم النص في أعلى منتصف الصفحة بدون خلفية */
+        #welcome-message {
+            position: absolute;
+            top: 25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 28px; /* تكبير الخط أكثر */
+            font-weight: bold;
+            color: #ffffff;
+            text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.9);
+            z-index: 10;
+            line-height: 1.5;
+            text-align: center;
+            background: none !important; /* إزالة أي خلفية */
+            padding: 0;
+            border: none;
+            box-shadow: none;
+            backdrop-filter: none;
+            white-space: nowrap; /* جعل النص في سطر واحد */
+        }
+
+        /* تأثير ظهور تدريجي */
+        #welcome-message {
+            animation: fadeIn 1.5s ease-out, float 6s ease-in-out infinite;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -15px); }
+            to { opacity: 1; transform: translate(-50%, 0); }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(-50%, 0); }
+            50% { transform: translate(-50%, -5px); }
+        }
+
+        /* تصميم متجاوب للشاشات المختلفة */
+        @media (max-width: 1024px) {
+            #welcome-message {
+                font-size: 24px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            #welcome-message {
+                top: 20px;
+                font-size: 22px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #welcome-message {
+                font-size: 20px;
+                white-space: normal; /* السماح بتقسيم النص في الشاشات الصغيرة */
+                max-width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="loading">Loading...</div>
+    <div id="help">
+        Click: add ripples<br>
+        Drag: move sphere<br>
+        Drag outside: rotate camera<br>
+        Space: pause<br>
+        G: toggle gravity<br>
+        L: lock light to camera
+    </div>
+
+    <!-- النص الجديد في أعلى منتصف الصفحة -->
+    <div id="welcome-message">
+        Hello Explorer! Touch the water and see how it moves!
+    </div>
+
+    <!-- Cubemap textures -->
+    <img id="xneg" src="xneg.jpg">
+    <img id="xpos" src="xpos.jpg">
+    <img id="yneg" src="ypos.jpg">
+    <img id="ypos" src="ypos.jpg">
+    <img id="zneg" src="zneg.jpg">
+    <img id="zpos" src="zpos.jpg">
+    <img id="tiles" src="tiles.jpg">
+
+    <script src="OES_texture_float_linear-polyfill.js"></script>
+    <script src="lightgl.js"></script>
+    <script src="water.js"></script>
+    <script src="cubemap.js"></script>
+    <script src="renderer.js"></script>
+    <script src="main.js"></script>
+</body>
+</html>
